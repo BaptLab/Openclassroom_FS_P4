@@ -18,7 +18,6 @@ import { Router } from '@angular/router';
 describe('MeComponent', () => {
   let component: MeComponent;
   let fixture: ComponentFixture<MeComponent>;
-  let mockRouter: jest.Mocked<Router>;
 
   const mockSessionService = {
     sessionInformation: {
@@ -28,10 +27,6 @@ describe('MeComponent', () => {
   };
 
   beforeEach(async () => {
-    mockRouter = {
-      navigateByUrl: jest.fn(),
-    } as any;
-
     await TestBed.configureTestingModule({
       declarations: [MeComponent],
       imports: [
