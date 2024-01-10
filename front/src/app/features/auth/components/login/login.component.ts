@@ -29,12 +29,19 @@ export class LoginComponent {
 
   public submit(): void {
     const loginRequest = this.form.value as LoginRequest;
+
+    console.log('Submitting login request:', loginRequest);
+
     this.authService.login(loginRequest).subscribe({
       next: (response: SessionInformation) => {
+        console.log('Login successful. Session Information:', response);
         this.sessionService.logIn(response);
-         this.router.navigate(['/sessions']);
+        this.router.navigate(['/sessions']);
       },
-      error: (error) => (this.onError = true),
+      error: (error) => {
+        console.error('Error during login:', error);
+        this.onError = true;
+      },
     });
   }
 }

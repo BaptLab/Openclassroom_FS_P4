@@ -88,7 +88,6 @@ describe('LoginComponent', () => {
     tick();
     fixture.detectChanges();
     flush();
-    console.log(routerNavigateSpy.mock.calls);
 
     // Check if the navigate function was called with the correct parameters
     expect(routerNavigateSpy).toHaveBeenCalledWith(['/sessions']);
@@ -135,7 +134,6 @@ describe('LoginComponent', () => {
     tick();
     fixture.detectChanges();
     flush();
-    console.log(routerNavigateSpy.mock.calls);
 
     // Check if the navigate function was not called
     expect(routerNavigateSpy).not.toHaveBeenCalled();
