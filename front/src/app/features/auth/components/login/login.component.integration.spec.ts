@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
+import { Router, Routes } from '@angular/router';
 import { LoginComponent } from './login.component';
 import { SessionService } from 'src/app/services/session.service';
 import { Observable, of, throwError } from 'rxjs';
@@ -22,6 +22,7 @@ import { SessionInformation } from 'src/app/interfaces/sessionInformation.interf
 import { LoginRequest } from '../../interfaces/loginRequest.interface';
 import { AuthService } from '../../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -29,6 +30,17 @@ describe('LoginComponent', () => {
   let router: Router;
   let authService: AuthService;
   let sessionService: SessionService;
+
+  //fake component for routing purposes
+  @Component({ template: '' })
+  class DummySessionsComponent {}
+
+  const routes: Routes = [
+    {
+      path: 'sessions',
+      component: DummySessionsComponent, // Provide a dummy component for the route
+    },
+  ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -39,7 +51,7 @@ describe('LoginComponent', () => {
         { provide: ComponentFixtureAutoDetect, useValue: true },
       ],
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
         BrowserAnimationsModule,
         MatCardModule,
         MatIconModule,
@@ -69,16 +81,28 @@ describe('LoginComponent', () => {
   });
 
   it('should log the user when credentials are valid', waitForAsync(async () => {
-    const loginSpy = jest.spyOn(component['authService'], 'login');
+    const mockSessionInformation: SessionInformation = {
+      token: 'mockedToken',
+      type: 'Bearer',
+      id: 1,
+      username: 'mockedUsername',
+      firstName: 'John',
+      lastName: 'Doe',
+      admin: true,
+    };
+
+    const loginSpy = jest
+      .spyOn(component['authService'], 'login')
+      .mockReturnValue(of(mockSessionInformation));
+
     const logInSpy = jest.spyOn(component['sessionService'], 'logIn');
     const consoleErrorSpy = jest.spyOn(console, 'error'); // Spy on console.error
+    const routerNavigateSpy = jest.spyOn(TestBed.inject(Router), 'navigate');
 
     component.form.patchValue({
       email: 'yoga@studio.com',
       password: 'test!1234',
     });
-
-    console.log('Form value before submit:', component.form.value);
 
     const loginComponentElement = fixture.nativeElement;
     const loginFormElement = loginComponentElement.querySelector('form');
@@ -99,7 +123,7 @@ describe('LoginComponent', () => {
 
     expect(logInSpy).toHaveBeenCalled();
     expect(consoleErrorSpy).not.toHaveBeenCalled();
-
+    expect(routerNavigateSpy).toHaveBeenCalledWith(['/sessions']);
     expect(sessionService.isLogged).toBeTruthy();
 
     sessionService.logOut();
