@@ -25,7 +25,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class User {
-  @Id
+	
+  public User(long l, String string, String string2, String string3, String string4, boolean b, LocalDateTime now,
+			LocalDateTime now2) {
+		// TODO Auto-generated constructor stub
+	}
+
+@Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 

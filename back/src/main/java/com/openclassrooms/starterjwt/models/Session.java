@@ -29,8 +29,22 @@ public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+ 
+    public Session(Long id, @NotBlank @Size(max = 50) String name, @NotNull Date date,
+			@NotNull @Size(max = 2500) String description, Teacher teacher, List<User> users, LocalDateTime createdAt,
+			LocalDateTime updatedAt) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.date = date;
+		this.description = description;
+		this.teacher = teacher;
+		this.users = users;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
 
-    @NotBlank
+	@NotBlank
     @Size(max = 50)
     private String name;
 

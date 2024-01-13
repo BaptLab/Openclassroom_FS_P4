@@ -26,7 +26,17 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    public Teacher(Long id, @NotBlank @Size(max = 20) String lastName, @NotBlank @Size(max = 20) String firstName,
+			LocalDateTime createdAt, LocalDateTime updatedAt) {
+		super();
+		this.id = id;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+
+	@NotBlank
     @Size(max = 20)
     @Column(name = "last_name")
     private String lastName;
