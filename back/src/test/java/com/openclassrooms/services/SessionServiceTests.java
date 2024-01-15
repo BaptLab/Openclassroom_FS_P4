@@ -28,52 +28,67 @@ import com.openclassrooms.starterjwt.services.UserService;
 @ExtendWith(MockitoExtension.class)
 public class SessionServiceTests {
 
-    @Mock
-    private SessionRepository sessionRepository;
+	@Mock
+	private SessionRepository sessionRepository;
 
-    @InjectMocks
-    private SessionService sessionService;
+	@InjectMocks
+	private SessionService sessionService;
 
-    @Test
-    public void testDeleteSession() {
-        Long sessionId = 1L;
+	@Test
+	public void testDeleteSession() {
+		Long sessionId = 1L;
 
-        sessionService.delete(sessionId);
+		sessionService.delete(sessionId);
 
-        verify(sessionRepository, times(1)).deleteById(sessionId);
-    }
+		verify(sessionRepository, times(1)).deleteById(sessionId);
+	}
 
-    @Test
-    public void testFindAllSession() {
-        sessionService.findAll();
-        verify(sessionRepository, times(1)).findAll();
-    }
+	@Test
+	public void testFindAllSession() {
+		sessionService.findAll();
+		verify(sessionRepository, times(1)).findAll();
+	}
 
-    @Test
-    public void testGetByIdSession_Found() {
-        Long sessionId = 1L;
-        Session mockSession = new Session(1L, "Fake Session", new Date(),
-                "This is a fake session for testing purposes.",
-                new Teacher(1L, "Doe", "John", LocalDateTime.now(), LocalDateTime.now()), new ArrayList<>(),
-                LocalDateTime.now(), LocalDateTime.now());
+	@Test
+	public void testGetByIdSession_Found() {
+		Long sessionId = 1L;
+		Session mockSession = new Session(1L, "Fake Session", new Date(),
+				"This is a fake session for testing purposes.",
+				new Teacher(1L, "Doe", "John", LocalDateTime.now(), LocalDateTime.now()), new ArrayList<>(),
+				LocalDateTime.now(), LocalDateTime.now());
 
-        when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(mockSession));
+		when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(mockSession));
 
-        Session result = sessionService.getById(sessionId);
+		Session result = sessionService.getById(sessionId);
 
-        assertEquals(mockSession, result);
-        verify(sessionRepository, times(1)).findById(sessionId);
-    }
-    
-    @Test
-    public void testGetByIdSession_Notfound() {
-    	Long sessionId = 1L;
-        when(sessionRepository.findById(sessionId)).thenReturn(Optional.empty());
-        
-        Session sessionResult = sessionService.getById(sessionId);
-        
-        assertNull(sessionResult);
-        verify(sessionRepository, times(1)).findById(sessionId);
-      
-    }
+		assertEquals(mockSession, result);
+		verify(sessionRepository, times(1)).findById(sessionId);
+	}
+
+	@Test
+	public void testGetByIdSession_Notfound() {
+		Long sessionId = 1L;
+		when(sessionRepository.findById(sessionId)).thenReturn(Optional.empty());
+
+		Session sessionResult = sessionService.getById(sessionId);
+
+		assertNull(sessionResult);
+		verify(sessionRepository, times(1)).findById(sessionId);
+	}
+
+	@Test
+	public void testUpdateSession() {
+		Long sessionId = 1L;
+		Session mockSession = new Session(1L, "Fake Session", new Date(),
+				"This is a fake session for testing purposes.",
+				new Teacher(1L, "Doe", "John", LocalDateTime.now(), LocalDateTime.now()), new ArrayList<>(),
+				LocalDateTime.now(), LocalDateTime.now());
+
+	    when(sessionRepository.save(mockSession)).thenReturn(mockSession);
+
+		Session sessionResult = sessionService.update(sessionId, mockSession);
+
+		assertEquals(mockSession, sessionResult);
+		verify(sessionRepository, times(1)).save(mockSession);
+	}
 }
