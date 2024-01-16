@@ -1,5 +1,6 @@
 package com.openclassrooms.starterjwt.security.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,26 +12,26 @@ import com.openclassrooms.starterjwt.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-  UserRepository userRepository;
+    private final UserRepository userRepository;
 
-  UserDetailsServiceImpl(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
+    @Autowired
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-  @Override
-  @Transactional
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findByEmail(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + username));
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + username));
 
-    return UserDetailsImpl
-            .builder()
-            .id(user.getId())
-            .username(user.getEmail())
-            .lastName(user.getLastName())
-            .firstName(user.getFirstName())
-            .password(user.getPassword())
-            .build();
-  }
-
+        return new UserDetailsImpl(
+                user.getId(),
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName(),
+				user.isAdmin(), 
+				user.getPassword()
+        );
+    }
 }

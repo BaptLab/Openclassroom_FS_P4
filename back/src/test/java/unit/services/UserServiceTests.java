@@ -1,4 +1,4 @@
-package com.openclassrooms.services;
+package unit.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

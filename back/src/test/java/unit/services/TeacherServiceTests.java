@@ -1,4 +1,4 @@
-package com.openclassrooms.services;
+package unit.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -58,7 +58,7 @@ public class TeacherServiceTests {
 		assertNull(teacherResult);
 		verify(teacherRepository, times(1)).findById(teacherId);
 	}
-	
+
 	
 	
 }

@@ -22,29 +22,15 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(of = {"id"})
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Session {
-    @Id
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
  
-    public Session(Long id, @NotBlank @Size(max = 50) String name, @NotNull Date date,
-			@NotNull @Size(max = 2500) String description, Teacher teacher, List<User> users, LocalDateTime createdAt,
-			LocalDateTime updatedAt) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.date = date;
-		this.description = description;
-		this.teacher = teacher;
-		this.users = users;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
-
 	@NotBlank
     @Size(max = 50)
     private String name;
@@ -75,23 +61,4 @@ public class Session {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	
-
-	
 }

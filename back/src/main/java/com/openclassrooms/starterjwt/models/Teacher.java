@@ -17,24 +17,15 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(of = {"id"})
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Teacher {
-    @Id
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Teacher(Long id, @NotBlank @Size(max = 20) String lastName, @NotBlank @Size(max = 20) String firstName,
-			LocalDateTime createdAt, LocalDateTime updatedAt) {
-		super();
-		this.id = id;
-		this.lastName = lastName;
-		this.firstName = firstName;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
 
 	@NotBlank
     @Size(max = 20)

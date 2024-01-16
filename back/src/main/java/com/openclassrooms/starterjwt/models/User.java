@@ -19,18 +19,13 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(of = {"id"})
-@Builder
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString
 public class User {
 	
-  public User(long l, String string, String string2, String string3, String string4, boolean b, LocalDateTime now,
-			LocalDateTime now2) {
-		// TODO Auto-generated constructor stub
-	}
-
+ 
 @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -73,6 +68,9 @@ public void setId(Long id) {
 	this.id = id;
 }
 
+public boolean isAdmin() {
+  return this.admin;
+}
 
 
 }

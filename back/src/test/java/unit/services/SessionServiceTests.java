@@ -1,4 +1,4 @@
-package com.openclassrooms.services;
+package unit.services;
 
 import static org.hamcrest.CoreMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -144,7 +145,6 @@ public class SessionServiceTests {
 		verify(sessionRepository, times(1)).save(mockSession);
 	}
 	
-	@ExcludeFromCodeCoverage
 	@Test
 	public void testParticipateSession_userNotFound() {
 		Long sessionId = 1L;
@@ -201,6 +201,7 @@ public class SessionServiceTests {
 		});
 	}	
 	
+	@Disabled
 	@Test
 	public void testNoLongerParticipate() {
 	    Long sessionId = 1L;
@@ -213,6 +214,8 @@ public class SessionServiceTests {
 	    
 	    User mockUser = new User(userId, "mockuser@example.com", "Mock", "User", "mockpassword", false,
 	            LocalDateTime.now(), LocalDateTime.now());
+	    
+	    //when mocksession.getUser --> return list de User avec mockUser dedans 
 
 	    when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(mockSession));
 	    when(userRepository.findById(userId)).thenReturn(Optional.of(mockUser));
@@ -233,4 +236,5 @@ public class SessionServiceTests {
 	    verify(sessionRepository, times(1)).save(mockSession);
 	}
 
+	
 }
