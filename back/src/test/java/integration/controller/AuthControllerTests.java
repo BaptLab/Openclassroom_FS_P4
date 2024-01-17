@@ -60,6 +60,55 @@ public class AuthControllerTests {
 				.andExpect(status().isOk());
 
 	}
+	
+	@Test
+	public void testRegisterWithAlreadyTakenCredentialUser() throws Exception {
+
+		SignupRequest signupRequest = new SignupRequest();
+		signupRequest.setEmail("user@test.com");
+		signupRequest.setFirstName("UserTest");
+		signupRequest.setLastName("UserTest");
+		signupRequest.setPassword("testpwd");
+
+		String jsonRequest = objectMapper.writeValueAsString(signupRequest);
+
+		mockMvc.perform(post("/api/auth/register").contentType(MediaType.APPLICATION_JSON).content(jsonRequest))
+				.andExpect(status().isOk());
+		
+		
+		//We do a scnd register with the same parameters
+		SignupRequest scndSignupRequest = new SignupRequest();
+		scndSignupRequest.setEmail("user@test.com");
+		scndSignupRequest.setFirstName("UserTest");
+		scndSignupRequest.setLastName("UserTest");
+		scndSignupRequest.setPassword("testpwd");
+
+		String scndJsonRequest = objectMapper.writeValueAsString(scndSignupRequest);
+
+		mockMvc.perform(post("/api/auth/register").contentType(MediaType.APPLICATION_JSON).content(scndJsonRequest))
+				.andExpect(status().isBadRequest());
+		
+		
+		//we log to get the id then we delete the user
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setEmail("user@test.com");
+		loginRequest.setPassword("testpwd");
+		String loginJsonRequest = objectMapper.writeValueAsString(loginRequest);
+
+		MvcResult result = mockMvc
+				.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON).content(loginJsonRequest))
+				.andExpect(status().isOk()).andReturn();
+		
+		String responseBody = result.getResponse().getContentAsString();
+		String authToken = objectMapper.readTree(responseBody).get("token").textValue();
+		Integer userId = objectMapper.readTree(responseBody).get("id").intValue();
+		String stringUserId = String.valueOf(userId);
+		
+		mockMvc.perform(delete("/api/user/{id}", stringUserId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)) // Include the token in the header
+				.andExpect(status().isOk());
+
+	}
 
 	@Test
 	public void testLoginWithValidCredentials() throws Exception {

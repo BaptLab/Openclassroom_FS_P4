@@ -38,7 +38,6 @@ import com.openclassrooms.starterjwt.services.UserService;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.any;
 
-
 @ExtendWith(MockitoExtension.class)
 public class SessionServiceTests {
 
@@ -144,7 +143,7 @@ public class SessionServiceTests {
 		sessionService.participate(sessionId, userId);
 		verify(sessionRepository, times(1)).save(mockSession);
 	}
-	
+
 	@Test
 	public void testParticipateSession_userNotFound() {
 		Long sessionId = 1L;
@@ -199,42 +198,123 @@ public class SessionServiceTests {
 		assertThrows(BadRequestException.class, () -> {
 			sessionService.participate(sessionId, userId);
 		});
-	}	
-	
-	@Disabled
+	}
+
 	@Test
 	public void testNoLongerParticipate() {
+		Long sessionId = 1L;
+		Long userId = 1L;
+
+		List<User> mockUsers = new ArrayList<>();
+		User mockUser = new User(userId, "mockuser@example.com", "Mock", "User", "mockpassword", false,
+				LocalDateTime.now(), LocalDateTime.now());
+
+		mockUsers.add(mockUser);
+
+		Session mockSession = new Session(1L, "Fake Session", new Date(),
+				"This is a fake session for testing purposes.",
+				new Teacher(1L, "Doe", "John", LocalDateTime.now(), LocalDateTime.now()), mockUsers,
+				LocalDateTime.now(), LocalDateTime.now());
+		when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(mockSession));
+		
+		Assertions.assertTrue(mockSession.getUsers().stream().anyMatch(user -> user.getId().equals(userId)));
+		
+		sessionService.noLongerParticipate(sessionId, userId);
+		
+		verify(sessionRepository, times(1)).findById(sessionId);
+		
+		Assertions.assertFalse(mockSession.getUsers().stream().anyMatch(user -> user.getId().equals(userId)));
+		verify(sessionRepository, times(1)).save(mockSession);
+	}
+	
+	@Test
+	public void testNoLongerParticipate_WrongUserId() {
 	    Long sessionId = 1L;
 	    Long userId = 1L;
+	    Long wrongUserId = 2L;
+
+	    List<User> mockUsers = new ArrayList<>();
+	    User mockUser = new User(userId, "mockuser@example.com", "Mock", "User", "mockpassword", false,
+	            LocalDateTime.now(), LocalDateTime.now());
+
+	    mockUsers.add(mockUser);
 
 	    Session mockSession = new Session(1L, "Fake Session", new Date(),
 	            "This is a fake session for testing purposes.",
-	            new Teacher(1L, "Doe", "John", LocalDateTime.now(), LocalDateTime.now()), new ArrayList<>(),
+	            new Teacher(1L, "Doe", "John", LocalDateTime.now(), LocalDateTime.now()), mockUsers,
 	            LocalDateTime.now(), LocalDateTime.now());
-	    
-	    User mockUser = new User(userId, "mockuser@example.com", "Mock", "User", "mockpassword", false,
-	            LocalDateTime.now(), LocalDateTime.now());
-	    
-	    //when mocksession.getUser --> return list de User avec mockUser dedans 
 
 	    when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(mockSession));
-	    when(userRepository.findById(userId)).thenReturn(Optional.of(mockUser));
 
-	    // Ensure that the user is initially participating
+	    Assertions.assertTrue(mockSession.getUsers().stream().anyMatch(user -> user.getId().equals(userId)));
+
+	    // We expect a BadRequestException when calling the method with the wrong Id
+	    Assertions.assertThrows(BadRequestException.class, () -> {
+	        sessionService.noLongerParticipate(sessionId, wrongUserId);
+	    });
+
+	    // Verify that findById is called on the sessionRepository
+	    verify(sessionRepository, times(1)).findById(sessionId);
+
+	    // Verify that the session state remains unchanged
+	    Assertions.assertTrue(mockSession.getUsers().stream().anyMatch(user -> user.getId().equals(userId)));
+	    
+	    // Verify that save is not called on the sessionRepository
+	    verify(sessionRepository, times(0)).save(mockSession);
+	}
+
+	@Test
+	public void testNoLongerParticipate_SessionNotFound() {
+	    Long sessionId = 1L;
+	    Long userId = 1L;
+
+	    List<User> mockUsers = new ArrayList<>();
+	    User mockUser = new User(userId, "mockuser@example.com", "Mock", "User", "mockpassword", false,
+	            LocalDateTime.now(), LocalDateTime.now());
+
+	    mockUsers.add(mockUser);
+
+	    Session mockSession = new Session(1L, "Fake Session", new Date(),
+	            "This is a fake session for testing purposes.",
+	            new Teacher(1L, "Doe", "John", LocalDateTime.now(), LocalDateTime.now()), mockUsers,
+	            LocalDateTime.now(), LocalDateTime.now());
+
+	    when(sessionRepository.findById(sessionId)).thenReturn(Optional.empty());
+
+	    Assertions.assertThrows(NotFoundException.class, () -> {
+	        sessionService.noLongerParticipate(sessionId, userId);
+	    });
+
+	    verify(sessionRepository, times(1)).findById(sessionId);
+	    verify(sessionRepository, times(0)).save(mockSession);
+	}
+	
+	@Test
+	public void testNoLongerParticipate_UserNotParticipating() {
+	    Long sessionId = 1L;
+	    Long userId = 1L;
+
+	    List<User> mockUsers = new ArrayList<>();
+	    User mockUser = new User(userId, "mockuser@example.com", "Mock", "User", "mockpassword", false,
+	            LocalDateTime.now(), LocalDateTime.now());
+
+	    mockUsers.add(mockUser);
+
+	    Session mockSession = new Session(1L, "Fake Session", new Date(),
+	            "This is a fake session for testing purposes.",
+	            new Teacher(1L, "Doe", "John", LocalDateTime.now(), LocalDateTime.now()), mockUsers,
+	            LocalDateTime.now(), LocalDateTime.now());
+
+	    when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(mockSession));
+	    when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(mockSession));
+
 	    Assertions.assertTrue(mockSession.getUsers().stream().anyMatch(user -> user.getId().equals(userId)));
 
 	    sessionService.noLongerParticipate(sessionId, userId);
 
-	    // Verify that findById is called on both repositories
 	    verify(sessionRepository, times(1)).findById(sessionId);
-	    verify(userRepository, times(1)).findById(userId);
-
-	    // Verify that the user is no longer participating in the session
 	    Assertions.assertFalse(mockSession.getUsers().stream().anyMatch(user -> user.getId().equals(userId)));
-
-	    // Verify that save is called on the sessionRepository
 	    verify(sessionRepository, times(1)).save(mockSession);
 	}
 
-	
 }
