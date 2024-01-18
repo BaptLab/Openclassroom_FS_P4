@@ -1,6 +1,6 @@
 {
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\polyfills.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\polyfills.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\polyfills.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\polyfills.ts",
     "statementMap": {},
     "fnMap": {},
     "branchMap": {},
@@ -13,17 +13,17 @@
       "names": [],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\polyfills.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\polyfills.ts"
       ],
       "sourcesContent": [
         "/**\r\n * This file includes polyfills needed by Angular and is loaded before the app.\r\n * You can add your own extra polyfills to this file.\r\n *\r\n * This file is divided into 2 sections:\r\n *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.\r\n *   2. Application imports. Files imported after ZoneJS that should be loaded before your main\r\n *      file.\r\n *\r\n * The current setup is for so-called \"evergreen\" browsers; the last versions of browsers that\r\n * automatically update themselves. This includes recent versions of Safari, Chrome (including\r\n * Opera), Edge on the desktop, and iOS and Chrome on mobile.\r\n *\r\n * Learn more in https://angular.io/guide/browser-support\r\n */\r\n\r\n/***************************************************************************************************\r\n * BROWSER POLYFILLS\r\n */\r\n\r\n/**\r\n * By default, zone.js will patch all possible macroTask and DomEvents\r\n * user can disable parts of macroTask/DomEvents patch by setting following flags\r\n * because those flags need to be set before `zone.js` being loaded, and webpack\r\n * will put import in the top of bundle, so user need to create a separate file\r\n * in this directory (for example: zone-flags.ts), and put the following flags\r\n * into that file, and then add the following code before importing zone.js.\r\n * import './zone-flags';\r\n *\r\n * The flags allowed in zone-flags.ts are listed here.\r\n *\r\n * The following flags will work for all browsers.\r\n *\r\n * (window as any).__Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame\r\n * (window as any).__Zone_disable_on_property = true; // disable patch onProperty such as onclick\r\n * (window as any).__zone_symbol__UNPATCHED_EVENTS = ['scroll', 'mousemove']; // disable patch specified eventNames\r\n *\r\n *  in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js\r\n *  with the following flag, it will bypass `zone.js` patch for IE/Edge\r\n *\r\n *  (window as any).__Zone_enable_cross_context_check = true;\r\n *\r\n */\r\n\r\n/***************************************************************************************************\r\n * Zone JS is required by default for Angular itself.\r\n */\r\nimport 'zone.js';  // Included with Angular CLI.\r\n\r\n\r\n/***************************************************************************************************\r\n * APPLICATION IMPORTS\r\n */\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "44f4e358b4eef0f78c4b74f188c83d45bc31f67b"
+    "hash": "9fdcf98875c722c6d4bcfa94ff656add6709aacc"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\services\\session.service.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\services\\session.service.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\services\\session.service.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\services\\session.service.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -388,7 +388,7 @@
       "0": 11,
       "1": 11,
       "2": 11,
-      "3": 597,
+      "3": 606,
       "4": 9,
       "5": 9,
       "6": 9,
@@ -404,7 +404,7 @@
     "f": {
       "0": 11,
       "1": 11,
-      "2": 597,
+      "2": 606,
       "3": 9,
       "4": 2,
       "5": 11,
@@ -438,17 +438,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\services\\session.service.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\services\\session.service.ts"
       ],
       "sourcesContent": [
         "import { Injectable } from '@angular/core';\r\nimport { BehaviorSubject, Observable } from 'rxjs';\r\nimport { SessionInformation } from '../interfaces/sessionInformation.interface';\r\n\r\n@Injectable({\r\n  providedIn: 'root',\r\n})\r\nexport class SessionService {\r\n  public isLogged = false;\r\n  public sessionInformation: SessionInformation | undefined;\r\n\r\n  private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);\r\n\r\n  public $isLogged(): Observable<boolean> {\r\n    return this.isLoggedSubject.asObservable();\r\n  }\r\n\r\n  public logIn(user: SessionInformation): void {\r\n    this.sessionInformation = user;\r\n    this.isLogged = true;\r\n    this.next();\r\n  }\r\n\r\n  public logOut(): void {\r\n    this.sessionInformation = undefined;\r\n    this.isLogged = false;\r\n    this.next();\r\n  }\r\n\r\n  private next(): void {\r\n    this.isLoggedSubject.next(this.isLogged);\r\n  }\r\n}\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "9ee62b6037a6d28365229c8654dcf02d6b4ae337"
+    "hash": "a6d26dafad055cbca43ff7b17d3ffdbf85a07130"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\services\\user.service.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\services\\user.service.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\services\\user.service.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\services\\user.service.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -743,17 +743,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\services\\user.service.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\services\\user.service.ts"
       ],
       "sourcesContent": [
         "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { User } from '../interfaces/user.interface';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class UserService {\r\n\r\n  private pathService = 'api/user';\r\n\r\n  constructor(private httpClient: HttpClient) { }\r\n\r\n  public getById(id: string): Observable<User> {\r\n    return this.httpClient.get<User>(`${this.pathService}/${id}`);\r\n  }\r\n\r\n  public delete(id: string): Observable<any> {\r\n    return this.httpClient.delete(`${this.pathService}/${id}`);\r\n  }\r\n}\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "bbc806cb516f4825f9d00b38486619ab6416d2a3"
+    "hash": "56f7fb898d55313fc150bed5b51f072ccb100d05"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\components\\me\\me.component.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\components\\me\\me.component.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\components\\me\\me.component.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\components\\me\\me.component.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -2300,7 +2300,7 @@
       "68": 11,
       "69": 2,
       "70": 11,
-      "71": 11,
+      "71": 9,
       "72": 2,
       "73": 2,
       "74": 0,
@@ -2313,9 +2313,9 @@
       "81": 2,
       "82": 2,
       "83": 2,
-      "84": 11,
-      "85": 9,
-      "86": 9,
+      "84": 9,
+      "85": 7,
+      "86": 7,
       "87": 11
     },
     "f": {
@@ -2331,7 +2331,7 @@
       "9": 1,
       "10": 1,
       "11": 2,
-      "12": 11,
+      "12": 9,
       "13": 0
     },
     "b": {
@@ -2357,10 +2357,10 @@
       ],
       "5": [
         2,
-        9
+        7
       ],
       "6": [
-        9,
+        7,
         2
       ]
     },
@@ -2400,8 +2400,8 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\components\\me\\me.component.html",
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\components\\me\\me.component.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\components\\me\\me.component.html",
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\components\\me\\me.component.ts"
       ],
       "sourcesContent": [
         "<div class=\"m3\">\r\n  <mat-card>\r\n    <mat-card-title>\r\n      <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n        <button mat-icon-button (click)=\"back()\">\r\n          <mat-icon>arrow_back</mat-icon>\r\n        </button>\r\n        <h1>User information</h1>\r\n      </div>\r\n    </mat-card-title>\r\n    <mat-card-content>\r\n      <div *ngIf=\"user\" fxLayout=\"column\" fxLayoutAlign=\"start center\">\r\n        <p>Name: {{ user.firstName }} {{ user.lastName | uppercase }}</p>\r\n        <p>Email: {{ user.email }}</p>\r\n        <p *ngIf=\"user.admin\" class=\"my2\">You are admin</p>\r\n        <div *ngIf=\"!user.admin\" fxLayout=\"column\" class=\"my2\" fxLayoutAlign=\"center center\">\r\n          <p>Delete my account:</p>\r\n          <button mat-raised-button color=\"warn\" (click)=\"delete()\">\r\n            <mat-icon>delete</mat-icon>\r\n            <span class=\"ml1\">Detail</span>\r\n          </button>\r\n        </div>\r\n        <div fxLayoutAlign=\"space-between center\" class=\"p2 w100\">\r\n\r\n          <p><i>Create at: </i> {{ user.createdAt | date: 'longDate'}}</p>\r\n          <p><i>Last update: </i> {{ user.updatedAt| date: 'longDate'}}</p>\r\n        </div>\r\n      </div>\r\n    </mat-card-content>\r\n  </mat-card>\r\n</div>\r\n",
@@ -2409,10 +2409,10 @@
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "b7eed9f268e198d54a204d373504efc3cfa2e45b"
+    "hash": "a6005506608a7d471dd8d3a40f325fdfce4b8c3a"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\components\\not-found\\not-found.component.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\components\\not-found\\not-found.component.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\components\\not-found\\not-found.component.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\components\\not-found\\not-found.component.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -2693,8 +2693,8 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\components\\not-found\\not-found.component.ts",
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\components\\not-found\\not-found.component.html"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\components\\not-found\\not-found.component.ts",
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\components\\not-found\\not-found.component.html"
       ],
       "sourcesContent": [
         "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-not-found',\r\n  templateUrl: './not-found.component.html',\r\n  styleUrls: ['./not-found.component.scss']\r\n})\r\nexport class NotFoundComponent {\r\n}\r\n",
@@ -2702,10 +2702,10 @@
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "5b324f41601f57ea2d80cd0d132d95f15a80d10a"
+    "hash": "6ab2d88befa726fda52a77586cc1e74a4a8a7be8"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\guards\\auth.guard.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\guards\\auth.guard.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\guards\\auth.guard.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\guards\\auth.guard.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -2994,10 +2994,10 @@
       "0": 11,
       "1": 9,
       "2": 9,
-      "3": 10,
+      "3": 11,
       "4": 0,
       "5": 0,
-      "6": 10,
+      "6": 11,
       "7": 11,
       "8": 9,
       "9": 11,
@@ -3006,13 +3006,13 @@
     "f": {
       "0": 11,
       "1": 9,
-      "2": 10,
+      "2": 11,
       "3": 9
     },
     "b": {
       "0": [
         0,
-        10
+        11
       ],
       "1": [
         9,
@@ -3037,17 +3037,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\guards\\auth.guard.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\guards\\auth.guard.ts"
       ],
       "sourcesContent": [
         "import {Injectable} from \"@angular/core\";\r\nimport {CanActivate, Router} from \"@angular/router\"; \r\nimport { SessionService } from \"../services/session.service\";\r\n\r\n@Injectable({providedIn: 'root'})\r\nexport class AuthGuard implements CanActivate {\r\n\r\n  constructor( \r\n    private router: Router,\r\n    private sessionService: SessionService,\r\n  ) {\r\n  }\r\n\r\n  public canActivate(): boolean {\r\n    if (!this.sessionService.isLogged) {\r\n      this.router.navigate(['login']);\r\n      return false;\r\n    }\r\n    return true;\r\n  }\r\n}"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "d9025f150ec22c4cc2eb0a7fab566704b10644ac"
+    "hash": "54ecfc9406d1e0d3eaa7e0aec6cfadf9582af54f"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\guards\\unauth.guard.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\guards\\unauth.guard.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\guards\\unauth.guard.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\guards\\unauth.guard.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -3379,17 +3379,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\guards\\unauth.guard.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\guards\\unauth.guard.ts"
       ],
       "sourcesContent": [
         "import {Injectable} from \"@angular/core\";\r\nimport {CanActivate, Router} from \"@angular/router\"; \r\nimport { SessionService } from \"../services/session.service\";\r\n\r\n@Injectable({providedIn: 'root'})\r\nexport class UnauthGuard implements CanActivate {\r\n\r\n  constructor( \r\n    private router: Router,\r\n    private sessionService: SessionService,\r\n  ) {\r\n  }\r\n\r\n  public canActivate(): boolean {\r\n    if (this.sessionService.isLogged) {\r\n      this.router.navigate(['rentals']);\r\n      return false;\r\n    }\r\n    return true;\r\n  }\r\n}"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "2b2eff78409565e93b18ff050cc3441ae2e4a58c"
+    "hash": "9d4439bfafeb741231f07337434da00ef80c1c54"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\app-routing.module.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\app-routing.module.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\app-routing.module.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\app-routing.module.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -3737,17 +3737,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\app-routing.module.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\app-routing.module.ts"
       ],
       "sourcesContent": [
         "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { MeComponent } from './components/me/me.component';\r\nimport { NotFoundComponent } from './components/not-found/not-found.component';\r\nimport { AuthGuard } from './guards/auth.guard';\r\nimport { UnauthGuard } from './guards/unauth.guard';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    canActivate: [UnauthGuard],\r\n    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)\r\n  },\r\n  {\r\n    path: 'sessions',\r\n    canActivate: [AuthGuard],\r\n    loadChildren: () => import('./features/sessions/sessions.module').then(m => m.SessionsModule)\r\n  },\r\n  {\r\n    path: 'me',\r\n    canActivate: [AuthGuard],\r\n    component: MeComponent\r\n  },\r\n  { path: '404', component: NotFoundComponent },\r\n  { path: '**', redirectTo: '404' }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forRoot(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class AppRoutingModule {\r\n}\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "46283590ef7356446a93f293b893b762c94b18bc"
+    "hash": "ec440ed2b5dc2f3b3115682e85d4b9dc07a5fc02"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\services\\auth.service.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\services\\auth.service.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\services\\auth.service.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\services\\auth.service.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -4043,17 +4043,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\services\\auth.service.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\services\\auth.service.ts"
       ],
       "sourcesContent": [
         "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { LoginRequest } from '../interfaces/loginRequest.interface';\r\nimport { RegisterRequest } from '../interfaces/registerRequest.interface';\r\nimport { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';\r\n\r\n@Injectable({\r\n  providedIn: 'root',\r\n})\r\nexport class AuthService {\r\n  private pathService = 'api/auth';\r\n\r\n  constructor(private httpClient: HttpClient) {}\r\n\r\n  public register(registerRequest: RegisterRequest): Observable<void> {\r\n    return this.httpClient.post<void>(\r\n      `${this.pathService}/register`,\r\n      registerRequest\r\n    );\r\n  }\r\n\r\n  public login(loginRequest: LoginRequest): Observable<SessionInformation> {\r\n    return this.httpClient.post<SessionInformation>(\r\n      `${this.pathService}/login`,\r\n      loginRequest\r\n    );\r\n  }\r\n}\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "dfa1186e21493da86e4fd5ddcb9019b4549608a3"
+    "hash": "937a253e6255f8ef04662386eeb9f0ac6b87cff5"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\app.component.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\app.component.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\app.component.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\app.component.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -4937,7 +4937,7 @@
       }
     },
     "s": {
-      "0": 169,
+      "0": 177,
       "1": 9,
       "2": 9,
       "3": 9,
@@ -4952,7 +4952,7 @@
       "12": 1,
       "13": 9,
       "14": 9,
-      "15": 450,
+      "15": 451,
       "16": 13,
       "17": 13,
       "18": 13,
@@ -4963,13 +4963,13 @@
       "23": 11,
       "24": 11,
       "25": 11,
-      "26": 597,
+      "26": 606,
       "27": 1,
       "28": 1,
       "29": 11,
       "30": 11,
       "31": 11,
-      "32": 608,
+      "32": 617,
       "33": 11,
       "34": 11,
       "35": 11,
@@ -4980,31 +4980,31 @@
       "40": 11,
       "41": 11,
       "42": 11,
-      "43": 608,
-      "44": 597,
-      "45": 597,
-      "46": 597,
+      "43": 617,
+      "44": 606,
+      "45": 606,
+      "46": 606,
       "47": 11
     },
     "f": {
-      "0": 169,
+      "0": 177,
       "1": 1,
-      "2": 450,
+      "2": 451,
       "3": 11,
       "4": 11,
-      "5": 597,
+      "5": 606,
       "6": 1,
       "7": 11,
-      "8": 608
+      "8": 617
     },
     "b": {
       "0": [
         9,
-        160
+        168
       ],
       "1": [
         13,
-        437
+        438
       ],
       "2": [
         11,
@@ -5012,10 +5012,10 @@
       ],
       "3": [
         11,
-        597
+        606
       ],
       "4": [
-        597,
+        606,
         11
       ]
     },
@@ -5042,8 +5042,8 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\app.component.html",
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\app.component.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\app.component.html",
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\app.component.ts"
       ],
       "sourcesContent": [
         "<div class=\"app\">\r\n  <mat-toolbar color=\"primary\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span>Yoga app</span>\r\n    <div *ngIf=\"$isLogged() | async; else notLogged\">\r\n      <span routerLink=\"sessions\" class=\"link\">Sessions</span>\r\n      <span routerLink=\"me\" class=\"link\">Account</span>\r\n      <span (click)=\"logout()\" class=\"link\">Logout</span>\r\n    </div>\r\n    <ng-template #notLogged>\r\n      <div>\r\n        <span routerLink=\"login\" class=\"link\">Login</span>\r\n        <span routerLink=\"register\" class=\"link\">Register</span>\r\n      </div>\r\n    </ng-template>\r\n  </mat-toolbar>\r\n  <div>\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>\r\n",
@@ -5051,10 +5051,10 @@
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "47134ff864d047cf086c5987c2b5be7dbd283901"
+    "hash": "480d066da6f3cefadc2e14f93880f520f16748c1"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\interceptors\\jwt.interceptor.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\interceptors\\jwt.interceptor.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\interceptors\\jwt.interceptor.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\interceptors\\jwt.interceptor.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -5322,9 +5322,9 @@
     "s": {
       "0": 11,
       "1": 10,
-      "2": 37,
-      "3": 26,
-      "4": 37,
+      "2": 38,
+      "3": 27,
+      "4": 38,
       "5": 11,
       "6": 10,
       "7": 11,
@@ -5333,12 +5333,12 @@
     "f": {
       "0": 11,
       "1": 10,
-      "2": 37,
+      "2": 38,
       "3": 10
     },
     "b": {
       "0": [
-        26,
+        27,
         11
       ],
       "1": [
@@ -5371,17 +5371,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\interceptors\\jwt.interceptor.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\interceptors\\jwt.interceptor.ts"
       ],
       "sourcesContent": [
         "import { HttpHandler, HttpInterceptor, HttpRequest } from \"@angular/common/http\";\r\nimport { Injectable } from \"@angular/core\";\r\nimport { SessionService } from '../services/session.service';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class JwtInterceptor implements HttpInterceptor {\r\n  constructor(private sessionService: SessionService) {}\r\n\r\n  public intercept(request: HttpRequest<any>, next: HttpHandler) {\r\n    if (this.sessionService.isLogged) {\r\n      request = request.clone({\r\n        setHeaders: {\r\n          Authorization: `Bearer ${this.sessionService.sessionInformation!.token}`,\r\n        },\r\n      });\r\n    }\r\n    return next.handle(request);\r\n  }\r\n}\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "ae85b9735949465e8d6b544d1d2749cda2ec2db3"
+    "hash": "7ddc5ec1fbe3424608848758af9b9082c2ce3fc4"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\app.module.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\app.module.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\app.module.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\app.module.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -5588,17 +5588,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\app.module.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\app.module.ts"
       ],
       "sourcesContent": [
         "import { NgModule } from '@angular/core';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\n\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { NotFoundComponent } from './components/not-found/not-found.component';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatToolbarModule } from '@angular/material/toolbar';\r\nimport { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';\r\nimport { JwtInterceptor } from './interceptors/jwt.interceptor';\r\nimport { MatCardModule } from '@angular/material/card';\r\nimport { FlexLayoutModule } from '@angular/flex-layout';\r\nimport { MeComponent } from './components/me/me.component';\r\n\r\nconst materialModule = [\r\n  MatButtonModule,\r\n  MatCardModule,\r\n  MatIconModule,\r\n  MatSnackBarModule,\r\n  MatToolbarModule,\r\n]\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    NotFoundComponent,\r\n    MeComponent,\r\n  ],\r\n  imports: [\r\n    BrowserModule,\r\n    AppRoutingModule,\r\n    BrowserAnimationsModule, \r\n    FlexLayoutModule,\r\n    HttpClientModule,\r\n    ...materialModule\r\n  ],\r\n  providers: [\r\n    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },\r\n  ],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "f5a4346774f5a1d273064f42ff26d2f860a24351"
+    "hash": "0b6624e6a292db45fd3c08594b8c510b79313fb3"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\environments\\environment.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\environments\\environment.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\environments\\environment.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\environments\\environment.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -5628,17 +5628,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\environments\\environment.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\environments\\environment.ts"
       ],
       "sourcesContent": [
         "export const environment = {\r\n  baseUrl: 'localhost:8080/api/',\r\n  production: false,\r\n};\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "ca9de2696eb6a13b1f07066124bd1918e0822c4e"
+    "hash": "2116bd343e5d250e9c173a83327584dce731229b"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\main.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\main.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\main.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\main.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -5777,17 +5777,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\main.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\main.ts"
       ],
       "sourcesContent": [
         "import { enableProdMode } from '@angular/core';\r\nimport { platformBrowserDynamic } from '@angular/platform-browser-dynamic';\r\n\r\nimport { AppModule } from './app/app.module';\r\nimport { environment } from './environments/environment';\r\n\r\nif (environment.production) {\r\n  enableProdMode();\r\n}\r\n\r\nplatformBrowserDynamic().bootstrapModule(AppModule)\r\n  .catch(err => console.error(err));\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "3c2202250c354e67a688a3329e82030894ddd566"
+    "hash": "b19290b4b164cc65999d20de7d1c3b9c678e49c9"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\login\\login.component.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\login\\login.component.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\login\\login.component.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\login\\login.component.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -6852,7 +6852,7 @@
       "18": 11,
       "19": 10,
       "20": 11,
-      "21": 369,
+      "21": 368,
       "22": 10,
       "23": 10,
       "24": 10,
@@ -6875,19 +6875,19 @@
       "41": 10,
       "42": 10,
       "43": 10,
-      "44": 369,
-      "45": 359,
-      "46": 359,
-      "47": 359,
-      "48": 359,
-      "49": 359,
-      "50": 359,
-      "51": 359,
-      "52": 359,
-      "53": 359,
-      "54": 359,
-      "55": 359,
-      "56": 359,
+      "44": 368,
+      "45": 358,
+      "46": 358,
+      "47": 358,
+      "48": 358,
+      "49": 358,
+      "50": 358,
+      "51": 358,
+      "52": 358,
+      "53": 358,
+      "54": 358,
+      "55": 358,
+      "56": 358,
       "57": 11
     },
     "f": {
@@ -6898,7 +6898,7 @@
       "4": 9,
       "5": 0,
       "6": 10,
-      "7": 369,
+      "7": 368,
       "8": 9,
       "9": 18
     },
@@ -6913,18 +6913,18 @@
       ],
       "2": [
         10,
-        359
+        358
       ],
       "3": [
-        359,
+        358,
         10
       ],
       "4": [
-        341,
+        340,
         18
       ],
       "5": [
-        341,
+        340,
         18
       ]
     },
@@ -6968,8 +6968,8 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\login\\login.component.ts",
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\login\\login.component.html"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\login\\login.component.ts",
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\login\\login.component.html"
       ],
       "sourcesContent": [
         "import { Component } from '@angular/core';\r\nimport { FormBuilder, Validators } from '@angular/forms';\r\nimport { Router } from '@angular/router';\r\nimport { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';\r\nimport { SessionService } from 'src/app/services/session.service';\r\nimport { LoginRequest } from '../../interfaces/loginRequest.interface';\r\nimport { AuthService } from '../../services/auth.service';\r\n\r\n@Component({\r\n  selector: 'app-login',\r\n  templateUrl: './login.component.html',\r\n  styleUrls: ['./login.component.scss'],\r\n})\r\nexport class LoginComponent {\r\n  public hide = true;\r\n  public onError = false;\r\n\r\n  public form = this.fb.group({\r\n    email: ['', [Validators.required, Validators.email]],\r\n    password: ['', [Validators.required, Validators.min(3)]],\r\n  });\r\n\r\n  constructor(\r\n    private authService: AuthService,\r\n    private fb: FormBuilder,\r\n    private router: Router,\r\n    private sessionService: SessionService\r\n  ) {}\r\n\r\n  public submit(): void {\r\n    const loginRequest = this.form.value as LoginRequest;\r\n    this.authService.login(loginRequest).subscribe({\r\n      next: (response: SessionInformation) => {\r\n        console.log(response);\r\n        this.sessionService.logIn(response);\r\n        this.router.navigate(['/sessions']);\r\n      },\r\n      error: (error) => {\r\n        this.onError = true;\r\n      },\r\n    });\r\n  }\r\n}\r\n",
@@ -6977,10 +6977,10 @@
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "fc335ff9aefdcb3cc385a6bb1036bb9af5e0971c"
+    "hash": "ceef4d102dc93fa8f368c49b91e89c87f70e489e"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\register\\register.component.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\register\\register.component.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\register\\register.component.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\register\\register.component.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -7956,8 +7956,8 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\register\\register.component.ts",
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\register\\register.component.html"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\register\\register.component.ts",
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\components\\register\\register.component.html"
       ],
       "sourcesContent": [
         "import { Component } from '@angular/core';\r\nimport { FormBuilder, Validators } from '@angular/forms';\r\nimport { Router } from '@angular/router';\r\nimport { AuthService } from '../../services/auth.service';\r\nimport { RegisterRequest } from '../../interfaces/registerRequest.interface';\r\n\r\n@Component({\r\n  selector: 'app-register',\r\n  templateUrl: './register.component.html',\r\n  styleUrls: ['./register.component.scss']\r\n})\r\nexport class RegisterComponent {\r\n\r\n  public onError = false;\r\n\r\n  public form = this.fb.group({\r\n    email: [\r\n      '',\r\n      [\r\n        Validators.required,\r\n        Validators.email\r\n      ]\r\n    ],\r\n    firstName: [\r\n      '',\r\n      [\r\n        Validators.required,\r\n        Validators.min(3),\r\n        Validators.max(20)\r\n      ]\r\n    ],\r\n    lastName: [\r\n      '',\r\n      [\r\n        Validators.required,\r\n        Validators.min(3),\r\n        Validators.max(20)\r\n      ]\r\n    ],\r\n    password: [\r\n      '',\r\n      [\r\n        Validators.required,\r\n        Validators.min(3),\r\n        Validators.max(40)\r\n      ]\r\n    ]\r\n  });\r\n\r\n  constructor(private authService: AuthService,\r\n              private fb: FormBuilder,\r\n              private router: Router) {\r\n  }\r\n\r\n  public submit(): void {\r\n    const registerRequest = this.form.value as RegisterRequest;\r\n    this.authService.register(registerRequest).subscribe({\r\n        next: (_: void) => this.router.navigate(['/login']),\r\n        error: _ => this.onError = true,\r\n      }\r\n    );\r\n  }\r\n\r\n}\r\n",
@@ -7965,10 +7965,10 @@
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "c9dbcfffdb5397e761a8d486663566db0af7d9ce"
+    "hash": "c9a9aa3f464e3663e79620229658d1b86d587ad6"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth-routing.module.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth-routing.module.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth-routing.module.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth-routing.module.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -8164,17 +8164,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth-routing.module.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth-routing.module.ts"
       ],
       "sourcesContent": [
         "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { LoginComponent } from './components/login/login.component';\r\nimport { RegisterComponent } from './components/register/register.component';\r\n\r\n\r\nconst routes: Routes = [\r\n  { title: 'Login', path: 'login', component: LoginComponent },\r\n  { title: 'Register', path: 'register', component: RegisterComponent }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class AuthRoutingModule { }\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "d733b9f2aa769f84fa67d69e2eede2eab4216383"
+    "hash": "50b07b470164fa959da5d79d28d12047b9f17e10"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth.module.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth.module.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth.module.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth.module.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -8373,17 +8373,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth.module.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\auth\\auth.module.ts"
       ],
       "sourcesContent": [
         "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { AuthRoutingModule } from './auth-routing.module';\r\nimport { RegisterComponent } from './components/register/register.component';\r\nimport { LoginComponent } from './components/login/login.component';\r\nimport { MatCardModule } from '@angular/material/card';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { FlexLayoutModule } from '@angular/flex-layout';\r\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatIconModule } from '@angular/material/icon';\r\n\r\nconst materialModules = [\r\n  MatButtonModule,\r\n  MatCardModule,\r\n  MatFormFieldModule,\r\n  MatIconModule,\r\n  MatInputModule\r\n]\r\n\r\n@NgModule({\r\n  declarations: [\r\n    RegisterComponent,\r\n    LoginComponent\r\n  ],\r\n  imports: [\r\n    AuthRoutingModule,\r\n    CommonModule,\r\n    FlexLayoutModule,\r\n    FormsModule,\r\n    ReactiveFormsModule,\r\n    ...materialModules\r\n  ]\r\n})\r\nexport class AuthModule { }\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "661bfcf092807c124ac1105bf22c9985c462a84c"
+    "hash": "94bb97e10f59fc9643c2739abfbe42568fdf2e59"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\services\\session-api.service.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\services\\session-api.service.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\services\\session-api.service.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\services\\session-api.service.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -8808,9 +8808,9 @@
     },
     "s": {
       "0": 9,
-      "1": 8,
-      "2": 8,
-      "3": 9,
+      "1": 9,
+      "2": 9,
+      "3": 10,
       "4": 5,
       "5": 0,
       "6": 1,
@@ -8818,26 +8818,26 @@
       "8": 1,
       "9": 1,
       "10": 9,
-      "11": 8,
+      "11": 9,
       "12": 9,
       "13": 9
     },
     "f": {
       "0": 9,
-      "1": 8,
-      "2": 9,
+      "1": 9,
+      "2": 10,
       "3": 5,
       "4": 0,
       "5": 1,
       "6": 0,
       "7": 1,
       "8": 1,
-      "9": 8
+      "9": 9
     },
     "b": {
       "0": [
-        8,
-        8
+        9,
+        9
       ]
     },
     "inputSourceMap": {
@@ -8867,17 +8867,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\services\\session-api.service.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\services\\session-api.service.ts"
       ],
       "sourcesContent": [
         "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { Session } from '../interfaces/session.interface';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class SessionApiService {\r\n\r\n  private pathService = 'api/session';\r\n\r\n  constructor(private httpClient: HttpClient) {\r\n  }\r\n\r\n  public all(): Observable<Session[]> {\r\n    return this.httpClient.get<Session[]>(this.pathService);\r\n  }\r\n\r\n  public detail(id: string): Observable<Session> {\r\n    return this.httpClient.get<Session>(`${this.pathService}/${id}`);\r\n  }\r\n\r\n  public delete(id: string): Observable<any> {\r\n    return this.httpClient.delete(`${this.pathService}/${id}`);\r\n  }\r\n\r\n  public create(session: Session): Observable<Session> {\r\n    return this.httpClient.post<Session>(this.pathService, session);\r\n  }\r\n\r\n  public update(id: string, session: Session): Observable<Session> {\r\n    return this.httpClient.put<Session>(`${this.pathService}/${id}`, session);\r\n  }\r\n\r\n  public participate(id: string, userId: string): Observable<void> {\r\n    return this.httpClient.post<void>(`${this.pathService}/${id}/participate/${userId}`, null);\r\n  }\r\n\r\n  public unParticipate(id: string, userId: string): Observable<void> {\r\n    return this.httpClient.delete<void>(`${this.pathService}/${id}/participate/${userId}`);\r\n  }\r\n\r\n}\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "51cdf109b158113c4e68edf73f60940d1f47b915"
+    "hash": "5b8a5f567fb93a8cfdcb5d698b6ff977df291c24"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\services\\teacher.service.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\services\\teacher.service.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\services\\teacher.service.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\services\\teacher.service.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -9172,17 +9172,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\services\\teacher.service.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\services\\teacher.service.ts"
       ],
       "sourcesContent": [
         "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { Teacher } from '../interfaces/teacher.interface';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class TeacherService {\r\n\r\n  private pathService = 'api/teacher';\r\n\r\n  constructor(private httpClient: HttpClient) { }\r\n\r\n  public all(): Observable<Teacher[]> {\r\n    return this.httpClient.get<Teacher[]>(this.pathService);\r\n  }\r\n\r\n  public detail(id: string): Observable<Teacher> {\r\n    return this.httpClient.get<Teacher>(`${this.pathService}/${id}`);\r\n  }\r\n}\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "ed4665b5445fae0a334160c8ed89da2963c8adc2"
+    "hash": "b82bcf1a318460dd0e09e83f18339d03dc289e3c"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\detail\\detail.component.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\detail\\detail.component.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\detail\\detail.component.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\detail\\detail.component.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -11999,7 +11999,7 @@
       "10": 0,
       "11": 0,
       "12": 0,
-      "13": 16,
+      "13": 18,
       "14": 3,
       "15": 3,
       "16": 3,
@@ -12025,18 +12025,18 @@
       "36": 2,
       "37": 2,
       "38": 2,
-      "39": 27,
+      "39": 29,
       "40": 3,
       "41": 3,
       "42": 3,
       "43": 3,
-      "44": 27,
-      "45": 24,
-      "46": 24,
-      "47": 24,
-      "48": 24,
-      "49": 24,
-      "50": 18,
+      "44": 29,
+      "45": 26,
+      "46": 26,
+      "47": 26,
+      "48": 26,
+      "49": 26,
+      "50": 23,
       "51": 3,
       "52": 3,
       "53": 3,
@@ -12044,11 +12044,11 @@
       "55": 3,
       "56": 3,
       "57": 3,
-      "58": 18,
-      "59": 15,
-      "60": 15,
-      "61": 15,
-      "62": 27,
+      "58": 23,
+      "59": 20,
+      "60": 20,
+      "61": 20,
+      "62": 29,
       "63": 3,
       "64": 3,
       "65": 3,
@@ -12101,26 +12101,26 @@
       "112": 3,
       "113": 3,
       "114": 3,
-      "115": 27,
-      "116": 24,
-      "117": 24,
-      "118": 24,
-      "119": 24,
-      "120": 24,
-      "121": 24,
-      "122": 24,
-      "123": 24,
-      "124": 24,
-      "125": 24,
-      "126": 24,
-      "127": 24,
-      "128": 24,
-      "129": 24,
-      "130": 24,
-      "131": 24,
-      "132": 24,
-      "133": 24,
-      "134": 24,
+      "115": 29,
+      "116": 26,
+      "117": 26,
+      "118": 26,
+      "119": 26,
+      "120": 26,
+      "121": 26,
+      "122": 26,
+      "123": 26,
+      "124": 26,
+      "125": 26,
+      "126": 26,
+      "127": 26,
+      "128": 26,
+      "129": 26,
+      "130": 26,
+      "131": 26,
+      "132": 26,
+      "133": 26,
+      "134": 26,
       "135": 9,
       "136": 3,
       "137": 3,
@@ -12148,29 +12148,29 @@
       "159": 5,
       "160": 4,
       "161": 5,
-      "162": 4,
+      "162": 5,
       "163": 9,
       "164": 3,
       "165": 9,
-      "166": 30,
+      "166": 32,
       "167": 3,
       "168": 3,
       "169": 3,
-      "170": 30,
-      "171": 27,
-      "172": 27,
+      "170": 32,
+      "171": 29,
+      "172": 29,
       "173": 9
     },
     "f": {
       "0": 0,
       "1": 0,
-      "2": 16,
+      "2": 18,
       "3": 1,
       "4": 13,
       "5": 1,
-      "6": 27,
-      "7": 18,
-      "8": 27,
+      "6": 29,
+      "7": 23,
+      "8": 29,
       "9": 0,
       "10": 9,
       "11": 3,
@@ -12185,9 +12185,9 @@
       "20": 5,
       "21": 5,
       "22": 4,
-      "23": 4,
+      "23": 5,
       "24": 3,
-      "25": 30
+      "25": 32
     },
     "b": {
       "0": [
@@ -12196,7 +12196,7 @@
       ],
       "1": [
         3,
-        13
+        15
       ],
       "2": [
         2,
@@ -12204,26 +12204,26 @@
       ],
       "3": [
         3,
-        24
+        26
       ],
       "4": [
-        24,
+        26,
         3
       ],
       "5": [
         3,
-        15
+        20
       ],
       "6": [
-        15,
+        20,
         3
       ],
       "7": [
         3,
-        24
+        26
       ],
       "8": [
-        24,
+        26,
         3
       ],
       "9": [
@@ -12232,10 +12232,10 @@
       ],
       "10": [
         3,
-        27
+        29
       ],
       "11": [
-        27,
+        29,
         3
       ]
     },
@@ -12292,8 +12292,8 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\detail\\detail.component.html",
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\detail\\detail.component.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\detail\\detail.component.html",
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\detail\\detail.component.ts"
       ],
       "sourcesContent": [
         "<div class=\"m3\">\r\n  <mat-card *ngIf=\"session\">\r\n    <mat-card-title>\r\n      <div fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n          <button mat-icon-button (click)=\"back()\">\r\n            <mat-icon>arrow_back</mat-icon>\r\n          </button>\r\n          <h1>{{session.name | titlecase}}</h1>\r\n        </div>\r\n        <div>\r\n          <button *ngIf=\"isAdmin\" mat-raised-button color=\"warn\" (click)=\"delete()\">\r\n            <mat-icon>delete</mat-icon>\r\n            <span class=\"ml1\">Delete</span>\r\n          </button>\r\n          <div *ngIf=\"!isAdmin\">\r\n            <button *ngIf=\"!isParticipate\" mat-raised-button color=\"primary\" (click)=\"participate()\">\r\n              <mat-icon>person_add</mat-icon>\r\n              <span class=\"ml1\">Participate</span>\r\n            </button>\r\n            <button *ngIf=\"isParticipate\" mat-raised-button color=\"warn\" (click)=\"unParticipate()\">\r\n              <mat-icon>person_remove</mat-icon>\r\n              <span class=\"ml1\">Do not participate</span>\r\n            </button>\r\n\r\n          </div>\r\n\r\n\r\n        </div>\r\n      </div>\r\n    </mat-card-title>\r\n    <mat-card-subtitle *ngIf=\"teacher\">\r\n      <div fxLayoutAlign=\"start center\" class=\"ml3\">\r\n        <mat-icon>\r\n          people\r\n        </mat-icon>\r\n        <span class=\"ml1\">{{ teacher.firstName }} {{ teacher.lastName | uppercase }}</span>\r\n      </div>\r\n    </mat-card-subtitle>\r\n    <div mat-card-image fxLayoutAlign=\"center center\">\r\n      <img class=\"picture\" src=\"assets/sessions.png\" alt=\"Yoga session\">\r\n    </div>\r\n    <mat-card-content>\r\n      <div class=\"my2\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div fxLayoutAlign=\"start center\">\r\n          <mat-icon>\r\n            group\r\n          </mat-icon>\r\n          <span class=\"ml1\">{{ session.users.length }} attendees</span>\r\n        </div>\r\n        <div fxLayoutAlign=\"start center\">\r\n          <mat-icon>\r\n            calendar_month\r\n          </mat-icon>\r\n          <span class=\"ml1\">{{ session.date | date: 'longDate'}}</span>\r\n        </div>\r\n      </div>\r\n      <div class=\"description\">\r\n        <p>Description:</p>\r\n        {{ session.description }}\r\n        <br>\r\n      </div>\r\n      <div class=\"date\" class=\"my2\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div class=\"created\"><i>Create at: </i> {{ session.createdAt| date: 'longDate'}}</div>\r\n        <div class=\"updated\"><i>Last update: </i> {{ session.updatedAt| date: 'longDate'}}</div>\r\n      </div>\r\n    </mat-card-content>\r\n  </mat-card>\r\n</div>\r\n",
@@ -12301,10 +12301,10 @@
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "5061b805cbe58b3decad949fdd95e7b334c34aef"
+    "hash": "d92d53d14629d6b53f2c29103274dbf431876109"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\form\\form.component.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\form\\form.component.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\form\\form.component.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\form\\form.component.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -14571,8 +14571,8 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\form\\form.component.ts",
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\form\\form.component.html"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\form\\form.component.ts",
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\form\\form.component.html"
       ],
       "sourcesContent": [
         "import { Component, OnInit } from '@angular/core';\r\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\r\nimport { MatSnackBar } from '@angular/material/snack-bar';\r\nimport { ActivatedRoute, Router } from '@angular/router';\r\nimport { SessionService } from '../../../../services/session.service';\r\nimport { TeacherService } from '../../../../services/teacher.service';\r\nimport { Session } from '../../interfaces/session.interface';\r\nimport { SessionApiService } from '../../services/session-api.service';\r\n\r\n@Component({\r\n  selector: 'app-form',\r\n  templateUrl: './form.component.html',\r\n  styleUrls: ['./form.component.scss']\r\n})\r\nexport class FormComponent implements OnInit {\r\n\r\n  public onUpdate: boolean = false;\r\n  public sessionForm: FormGroup | undefined;\r\n  public teachers$ = this.teacherService.all();\r\n  private id: string | undefined;\r\n\r\n  constructor(\r\n    private route: ActivatedRoute,\r\n    private fb: FormBuilder,\r\n    private matSnackBar: MatSnackBar,\r\n    private sessionApiService: SessionApiService,\r\n    private sessionService: SessionService,\r\n    private teacherService: TeacherService,\r\n    private router: Router\r\n  ) {\r\n  }\r\n\r\n  public ngOnInit(): void {\r\n    if (!this.sessionService.sessionInformation!.admin) {\r\n      this.router.navigate(['/sessions']);\r\n    }\r\n    const url = this.router.url;\r\n    if (url.includes('update')) {\r\n      this.onUpdate = true;\r\n      this.id = this.route.snapshot.paramMap.get('id')!;\r\n      this.sessionApiService\r\n        .detail(this.id)\r\n        .subscribe((session: Session) => this.initForm(session));\r\n    } else {\r\n      this.initForm();\r\n    }\r\n  }\r\n\r\n  public submit(): void {\r\n    const session = this.sessionForm?.value as Session;\r\n\r\n    if (!this.onUpdate) {\r\n      this.sessionApiService\r\n        .create(session)\r\n        .subscribe((_: Session) => this.exitPage('Session created !'));\r\n    } else {\r\n      this.sessionApiService\r\n        .update(this.id!, session)\r\n        .subscribe((_: Session) => this.exitPage('Session updated !'));\r\n    }\r\n  }\r\n\r\n  private initForm(session?: Session): void {\r\n    this.sessionForm = this.fb.group({\r\n      name: [\r\n        session ? session.name : '',\r\n        [Validators.required]\r\n      ],\r\n      date: [\r\n        session ? new Date(session.date).toISOString().split('T')[0] : '',\r\n        [Validators.required]\r\n      ],\r\n      teacher_id: [\r\n        session ? session.teacher_id : '',\r\n        [Validators.required]\r\n      ],\r\n      description: [\r\n        session ? session.description : '',\r\n        [\r\n          Validators.required,\r\n          Validators.max(2000)\r\n        ]\r\n      ],\r\n    });\r\n  }\r\n\r\n  private exitPage(message: string): void {\r\n    this.matSnackBar.open(message, 'Close', { duration: 3000 });\r\n    this.router.navigate(['sessions']);\r\n  }\r\n}\r\n",
@@ -14580,10 +14580,10 @@
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "93cb764f0a2f2647644c5908ee14a2ac732a1195"
+    "hash": "3d9406bcee87ffa0aae0849c13866095f0fd362f"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\list\\list.component.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\list\\list.component.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\list\\list.component.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\list\\list.component.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -15919,7 +15919,7 @@
       }
     },
     "s": {
-      "0": 16,
+      "0": 20,
       "1": 4,
       "2": 4,
       "3": 4,
@@ -15976,46 +15976,46 @@
       "54": 8,
       "55": 8,
       "56": 9,
-      "57": 9,
-      "58": 9,
-      "59": 9,
-      "60": 38,
+      "57": 10,
+      "58": 10,
+      "59": 10,
+      "60": 47,
       "61": 9,
-      "62": 9,
+      "62": 10,
       "63": 9,
-      "64": 39,
-      "65": 9,
-      "66": 9,
-      "67": 9,
-      "68": 9,
-      "69": 9,
-      "70": 9,
-      "71": 9,
-      "72": 9,
-      "73": 9,
-      "74": 39,
-      "75": 30,
-      "76": 30,
-      "77": 30,
-      "78": 30,
+      "64": 49,
+      "65": 10,
+      "66": 10,
+      "67": 10,
+      "68": 10,
+      "69": 10,
+      "70": 10,
+      "71": 10,
+      "72": 10,
+      "73": 10,
+      "74": 49,
+      "75": 39,
+      "76": 39,
+      "77": 39,
+      "78": 39,
       "79": 9
     },
     "f": {
-      "0": 16,
+      "0": 20,
       "1": 0,
       "2": 0,
       "3": 4,
       "4": 12,
       "5": 9,
-      "6": 9,
-      "7": 38,
-      "8": 9,
-      "9": 39
+      "6": 10,
+      "7": 47,
+      "8": 10,
+      "9": 49
     },
     "b": {
       "0": [
         4,
-        12
+        16
       ],
       "1": [
         0,
@@ -16034,16 +16034,16 @@
         4
       ],
       "5": [
-        9,
-        9
+        10,
+        10
       ],
       "6": [
-        9,
-        30
+        10,
+        39
       ],
       "7": [
-        30,
-        9
+        39,
+        10
       ]
     },
     "inputSourceMap": {
@@ -16066,8 +16066,8 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\list\\list.component.html",
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\list\\list.component.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\list\\list.component.html",
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\components\\list\\list.component.ts"
       ],
       "sourcesContent": [
         "<div class=\"list\">\r\n  <mat-card>\r\n    <mat-card-header fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <mat-card-title class=\"m0\">Rentals available</mat-card-title>\r\n      <button *ngIf=\"user!.admin\" mat-raised-button color=\"primary\" routerLink=\"create\">\r\n        <mat-icon>add</mat-icon>\r\n        <span class=\"ml1\">Create</span>\r\n      </button>\r\n    </mat-card-header>\r\n    <div class=\"items mt2\" fxLayout=\"row wrap\" fxLayout.lt-md=\"column\">\r\n      <mat-card class=\"item\" *ngFor=\"let session of (sessions$ | async)\" fxFlex>\r\n        <mat-card-header>\r\n          <mat-card-title>{{ session.name }}</mat-card-title>\r\n          <mat-card-subtitle>\r\n            Session on {{ session.date | date: 'longDate'}}\r\n          </mat-card-subtitle>\r\n        </mat-card-header>\r\n        <div mat-card-image fxLayoutAlign=\"center center\">\r\n          <img class=\"picture\" src=\"assets/sessions.png\" alt=\"Yoga session\">\r\n        </div>\r\n        <mat-card-content>\r\n          <p>\r\n            {{ session.description }}\r\n          </p>\r\n        </mat-card-content>\r\n        <mat-card-actions>\r\n          <button mat-raised-button color=\"primary\" [routerLink]=\"['detail',session.id]\">\r\n            <mat-icon>search</mat-icon>\r\n            <span class=\"ml1\">Detail</span>\r\n          </button>\r\n          <button *ngIf=\"user!.admin\" mat-raised-button color=\"primary\"\r\n                  [routerLink]=\"['update',session.id]\">\r\n            <mat-icon>edit</mat-icon>\r\n            <span class=\"ml1\">Edit</span>\r\n          </button>\r\n        </mat-card-actions>\r\n      </mat-card>\r\n    </div>\r\n  </mat-card>\r\n</div>\r\n",
@@ -16075,10 +16075,10 @@
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "092b80ab3aac71c711d2d9daa73763ed83a4842f"
+    "hash": "847580afa41a1679aa3eec4388d5e771e650c471"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions-routing.module.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions-routing.module.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions-routing.module.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions-routing.module.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -16243,19 +16243,19 @@
       "0": 9,
       "1": 9,
       "2": 9,
-      "3": 8,
+      "3": 9,
       "4": 9,
       "5": 9,
       "6": 9
     },
     "f": {
       "0": 9,
-      "1": 8
+      "1": 9
     },
     "b": {
       "0": [
-        8,
-        8
+        9,
+        9
       ]
     },
     "inputSourceMap": {
@@ -16275,17 +16275,17 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions-routing.module.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions-routing.module.ts"
       ],
       "sourcesContent": [
         "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { DetailComponent } from './components/detail/detail.component';\r\nimport { FormComponent } from './components/form/form.component';\r\nimport { ListComponent } from './components/list/list.component';\r\n\r\nconst routes: Routes = [\r\n  { path: '', title: 'Sessions', component: ListComponent },\r\n  { path: 'detail/:id', title: 'Sessions - detail', component: DetailComponent },\r\n  { path: 'create', title: 'Sessions - create', component: FormComponent },\r\n  { path: 'update/:id', title: 'Sessions - update', component: FormComponent }\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class SessionsRoutingModule {\r\n}\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "943e3c8145f73ea158a6c83f2d409b2a690fc4b8"
+    "hash": "59547f7f64567a1eafd37a3ff8629b3c2acba79c"
   },
-  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions.module.ts": {
-    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions.module.ts",
+  "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions.module.ts": {
+    "path": "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions.module.ts",
     "statementMap": {
       "0": {
         "start": {
@@ -16461,19 +16461,19 @@
       "1": 9,
       "2": 9,
       "3": 9,
-      "4": 8,
+      "4": 9,
       "5": 9,
       "6": 9,
       "7": 9
     },
     "f": {
       "0": 9,
-      "1": 8
+      "1": 9
     },
     "b": {
       "0": [
-        8,
-        8
+        9,
+        9
       ]
     },
     "inputSourceMap": {
@@ -16498,13 +16498,13 @@
       ],
       "sourceRoot": "",
       "sources": [
-        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation FS\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions.module.ts"
+        "C:\\Users\\Baptiste\\Desktop\\OPENCLASSROOM\\Formation Full-Stack\\Openclassroom_FS_P5\\front\\src\\app\\features\\sessions\\sessions.module.ts"
       ],
       "sourcesContent": [
         "import { NgModule } from '@angular/core';\r\nimport { CommonModule, registerLocaleData } from '@angular/common';\r\nimport { FlexLayoutModule } from '@angular/flex-layout';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatCardModule } from '@angular/material/card';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatSelectModule } from '@angular/material/select';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { ListComponent } from './components/list/list.component';\r\nimport { FormComponent } from './components/form/form.component';\r\nimport { DetailComponent } from './components/detail/detail.component';\r\nimport { SessionsRoutingModule } from './sessions-routing.module';\r\nimport localeFr from '@angular/common/locales/fr';\r\nregisterLocaleData(localeFr);\r\n\r\nconst materialModules = [\r\n  MatButtonModule,\r\n  MatCardModule,\r\n  MatFormFieldModule,\r\n  MatIconModule,\r\n  MatInputModule,\r\n  MatSnackBarModule,\r\n  MatSelectModule\r\n];\r\n\r\n@NgModule({\r\n  declarations: [\r\n    ListComponent,\r\n    FormComponent,\r\n    DetailComponent\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    FlexLayoutModule,\r\n    ReactiveFormsModule,\r\n    SessionsRoutingModule,\r\n    ...materialModules\r\n  ]\r\n})\r\nexport class SessionsModule { }\r\n"
       ]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "5f93438fa63cef2104f6f223a8ad2e577c3348f6"
+    "hash": "6cb8c931907267a72ae889fcb8a95a1a850573e2"
   }
 }
