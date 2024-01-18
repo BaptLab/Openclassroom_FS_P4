@@ -1,9 +1,11 @@
 package integration.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -128,48 +131,171 @@ public class SessionControllerTests {
 
 	@Test
 	public void createSessionTest() throws Exception {
-	    List<Long> mockUsers = new ArrayList<>();
+		List<Long> mockUsers = new ArrayList<>();
 
-	    SessionDto mockSessionDTO = new SessionDto(null, "Fake Session", new Date(), 1L,
-	            "This is a fake session for testing purposes.", mockUsers, LocalDateTime.now(), LocalDateTime.now());
+		SessionDto mockSessionDTO = new SessionDto(null, "Fake Session", new Date(), 1L,
+				"This is a fake session for testing purposes.", mockUsers, LocalDateTime.now(), LocalDateTime.now());
 
-	    // Perform creation and retrieve the ID from the response
-	    MvcResult result = mockMvc.perform(post("/api/session")
-	            .contentType(MediaType.APPLICATION_JSON)
-	            .content(objectMapper.writeValueAsString(mockSessionDTO))
-	            .header("Authorization", "Bearer " + authToken))
-	            .andExpect(status().isOk())
-	            .andReturn();
+		// Perform creation and retrieve the ID from the response
+		MvcResult result = mockMvc.perform(post("/api/session").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(mockSessionDTO))
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isOk()).andReturn();
 
-	    String content = result.getResponse().getContentAsString();
-	    Long sessionId = objectMapper.readTree(content).path("id").asLong();
-	    String stringSessionId = String.valueOf(sessionId)
-;	    
-	    // Perform retrieval and check for the presence of the created session
-	    mockMvc.perform(get("/api/session")
-	            .contentType(MediaType.APPLICATION_JSON)
-	            .header("Authorization", "Bearer " + authToken))
-	            .andExpect(status().isOk())
-	            .andExpect(jsonPath("$[?(@.id == " + stringSessionId + ")]").exists())
-	            .andExpect(jsonPath("$[*].name", hasItem("Fake Session")))
-	            .andExpect(jsonPath("$[*].description", hasItem("This is a fake session for testing purposes.")))
-	            .andExpect(jsonPath("$[*].teacher_id", hasItem(1)))
-	            .andExpect(jsonPath("$[*].users", hasItem(mockUsers)))
-	            .andExpect(jsonPath("$[*].createdAt").isNotEmpty())
-	            .andExpect(jsonPath("$[*].updatedAt").isNotEmpty());
+		String content = result.getResponse().getContentAsString();
+		Long sessionId = objectMapper.readTree(content).path("id").asLong();
+		String stringSessionId = String.valueOf(sessionId);
+		// Perform retrieval and check for the presence of the created session
+		mockMvc.perform(get("/api/session").contentType(MediaType.APPLICATION_JSON).header("Authorization",
+				"Bearer " + authToken)).andExpect(status().isOk())
+				.andExpect(jsonPath("$[?(@.id == " + stringSessionId + ")]").exists())
+				.andExpect(jsonPath("$[*].name", hasItem("Fake Session")))
+				.andExpect(jsonPath("$[*].description", hasItem("This is a fake session for testing purposes.")))
+				.andExpect(jsonPath("$[*].teacher_id", hasItem(1)))
+				.andExpect(jsonPath("$[*].users", hasItem(mockUsers)))
+				.andExpect(jsonPath("$[*].createdAt").isNotEmpty()).andExpect(jsonPath("$[*].updatedAt").isNotEmpty());
 
-	    // Perform deletion using the retrieved ID
-	    mockMvc.perform(delete("/api/session/{id}", stringSessionId)
-	            .contentType(MediaType.APPLICATION_JSON)
-	            .header("Authorization", "Bearer " + authToken));
+		// Perform deletion using the retrieved ID
+		mockMvc.perform(delete("/api/session/{id}", stringSessionId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken));
 
-	    // Perform retrieval and check that the session is no longer present
-	    mockMvc.perform(get("/api/session")
-	            .contentType(MediaType.APPLICATION_JSON)
-	            .header("Authorization", "Bearer " + authToken))
-	            .andExpect(status().isOk())
-	            .andExpect(jsonPath("$[*].id", not(hasItem(stringSessionId))));
+		// Perform retrieval and check that the session is no longer present
+		mockMvc.perform(get("/api/session").contentType(MediaType.APPLICATION_JSON).header("Authorization",
+				"Bearer " + authToken)).andExpect(status().isOk())
+				.andExpect(jsonPath("$[*].id", not(hasItem(stringSessionId))));
 	}
 
+	@Test
+	public void updateSessionTest() throws Exception {
+		List<Long> mockUsers = new ArrayList<>();
+		SessionDto mockSessionDTO = new SessionDto(null, "Fake Session", new Date(), 1L,
+				"This is a fake session for testing purposes.", mockUsers, LocalDateTime.now(), LocalDateTime.now());
+
+		SessionDto newSessionDTO = new SessionDto(null, "New Fake Session", new Date(), 1L,
+				"This is a new fake session for testing purposes.", mockUsers, LocalDateTime.now(),
+				LocalDateTime.now());
+
+		// Perform creation and retrieve the ID from the response
+		MvcResult result = mockMvc.perform(post("/api/session").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(mockSessionDTO))
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isOk()).andReturn();
+
+		String content = result.getResponse().getContentAsString();
+		Long sessionId = objectMapper.readTree(content).path("id").asLong();
+		String stringSessionId = String.valueOf(sessionId);
+		// Perform retrieval and check for the presence of the created session
+		mockMvc.perform(get("/api/session").contentType(MediaType.APPLICATION_JSON).header("Authorization",
+				"Bearer " + authToken)).andExpect(status().isOk())
+				.andExpect(jsonPath("$[?(@.id == " + stringSessionId + ")]").exists())
+				.andExpect(jsonPath("$[*].name", hasItem("Fake Session")))
+				.andExpect(jsonPath("$[*].description", hasItem("This is a fake session for testing purposes.")))
+				.andExpect(jsonPath("$[*].teacher_id", hasItem(1)))
+				.andExpect(jsonPath("$[*].users", hasItem(mockUsers)))
+				.andExpect(jsonPath("$[*].createdAt").isNotEmpty()).andExpect(jsonPath("$[*].updatedAt").isNotEmpty());
+
+		MvcResult putResult = mockMvc.perform(put("/api/session/{id}", stringSessionId)
+				.contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(newSessionDTO))
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isOk()).andReturn();
+
+		// Now, perform assertions on the MvcResult
+		String newContent = putResult.getResponse().getContentAsString();
+		JsonNode updatedSession = objectMapper.readTree(newContent);
+
+		// Example assertion on the updated session's name and description
+		Assertions.assertEquals("New Fake Session", updatedSession.path("name").asText());
+		Assertions.assertEquals("This is a new fake session for testing purposes.",
+				updatedSession.path("description").asText());
+
+		// Perform deletion using the retrieved ID
+		mockMvc.perform(delete("/api/session/{id}", stringSessionId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken));
+
+		// Perform retrieval and check that the session is no longer present
+		mockMvc.perform(get("/api/session").contentType(MediaType.APPLICATION_JSON).header("Authorization",
+				"Bearer " + authToken)).andExpect(status().isOk())
+				.andExpect(jsonPath("$[*].id", not(hasItem(stringSessionId))));
+	}
+
+	@Test
+	public void updateSessionNumberTest_FormatExceptionTest() throws Exception {
+		// Setup
+		List<Long> mockUsers = new ArrayList<>();
+		SessionDto mockSessionDTO = new SessionDto(null, "Fake Session", new Date(), 1L,
+				"This is a fake session for testing purposes.", mockUsers, LocalDateTime.now(), LocalDateTime.now());
+
+		// Perform creation and retrieve the ID from the response
+		MvcResult result = mockMvc.perform(post("/api/session").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(mockSessionDTO))
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isOk()).andReturn();
+
+		// Extract session ID from the response
+		String content = result.getResponse().getContentAsString();
+		Long sessionId = objectMapper.readTree(content).path("id").asLong();
+		String invalidSessionId = "invalidId"; // Use an invalid ID to trigger NumberFormatException
+
+		try {
+			// Attempt to update session with an invalid ID, expect NumberFormatException
+			mockMvc.perform(put("/api/session/{id}", invalidSessionId).contentType(MediaType.APPLICATION_JSON)
+					.content(objectMapper.writeValueAsString(mockSessionDTO))
+					.header("Authorization", "Bearer " + authToken)).andExpect(status().isBadRequest());
+
+		} catch (NumberFormatException e) {
+			// If NumberFormatException is caught, it should not propagate further
+			Assertions.fail("NumberFormatException should not be thrown");
+		}
+
+		// Perform cleanup: Delete the session created earlier
+		mockMvc.perform(delete("/api/session/{id}", sessionId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken));
+
+		// Assert that the session is no longer present
+		mockMvc.perform(get("/api/session").contentType(MediaType.APPLICATION_JSON).header("Authorization",
+				"Bearer " + authToken)).andExpect(status().isOk())
+				.andExpect(jsonPath("$[?(@.id == " + sessionId + ")]").doesNotExist());
+	}
+
+	@Test
+	public void deleteSessionTest() throws Exception {
+		// Setup
+		List<Long> mockUsers = new ArrayList<>();
+		SessionDto mockSessionDTO = new SessionDto(null, "Fake Session", new Date(), 1L,
+				"This is a fake session for testing purposes.", mockUsers, LocalDateTime.now(), LocalDateTime.now());
+
+		MvcResult result = mockMvc.perform(post("/api/session").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(mockSessionDTO))
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isOk()).andReturn();
+
+		// Extract session ID from the response
+		String content = result.getResponse().getContentAsString();
+		Long sessionId = objectMapper.readTree(content).path("id").asLong();
+
+		// Perform deletion using the retrieved ID
+		mockMvc.perform(delete("/api/session/{id}", sessionId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isOk());
+
+		// Perform retrieval and check that the session is no longer present
+		mockMvc.perform(get("/api/session").contentType(MediaType.APPLICATION_JSON).header("Authorization",
+				"Bearer " + authToken)).andExpect(status().isOk())
+				.andExpect(jsonPath("$[*].id", not(hasItem(sessionId))));
+	}
+
+	@Test
+	public void deleteSessionTest_NotFound() throws Exception {
+		// Setup
+		String nonExistentSessionId = "999"; // Choose a session ID that does not exist
+
+		// Perform deletion attempt with a non-existent session ID
+		mockMvc.perform(delete("/api/session/{id}", nonExistentSessionId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isNotFound());
+	}
+
+	@Test
+	public void deleteSessionTest_NumberFormatException() throws Exception {
+		// Setup
+		String invalidSessionId = "invalidId"; // Choose an invalid session ID to trigger NumberFormatException
+
+		// Perform deletion attempt with an invalid session ID
+		mockMvc.perform(delete("/api/session/{id}", invalidSessionId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isBadRequest());
+	}
 
 }
