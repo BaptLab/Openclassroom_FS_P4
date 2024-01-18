@@ -298,4 +298,98 @@ public class SessionControllerTests {
 				.header("Authorization", "Bearer " + authToken)).andExpect(status().isBadRequest());
 	}
 
+	@Test
+	public void participateTest() throws Exception {
+	    // Setup
+	    List<Long> mockUsers = new ArrayList<>();
+	    SessionDto mockSessionDTO = new SessionDto(null, "Fake Session", new Date(), 1L,
+	            "This is a fake session for testing purposes.", mockUsers, LocalDateTime.now(), LocalDateTime.now());
+
+	    MvcResult result = mockMvc.perform(post("/api/session").contentType(MediaType.APPLICATION_JSON)
+	            .content(objectMapper.writeValueAsString(mockSessionDTO))
+	            .header("Authorization", "Bearer " + authToken)).andExpect(status().isOk()).andReturn();
+
+	    // Extract session ID from the response
+	    String content = result.getResponse().getContentAsString();
+	    Long sessionId = objectMapper.readTree(content).path("id").asLong();
+	    String stringSessionId = String.valueOf(sessionId);
+
+	    // Perform participation using the retrieved IDs
+	    mockMvc.perform(post("/api/session/{id}/participate/{userId}", stringSessionId, stringUserId)
+	            .contentType(MediaType.APPLICATION_JSON)
+	            .header("Authorization", "Bearer " + authToken)).andExpect(status().isOk());
+
+	    mockMvc.perform(delete("/api/session/{id}/participate/{userId}", stringSessionId, stringUserId)
+	            .contentType(MediaType.APPLICATION_JSON)
+	            .header("Authorization", "Bearer " + authToken)).andExpect(status().isOk());
+	    
+	    mockMvc.perform(delete("/api/session/{id}", sessionId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isOk());
+
+	}
+	@Test
+	public void participateTest_badRequest() throws Exception {
+	    // Setup
+	    List<Long> mockUsers = new ArrayList<>();
+	    SessionDto mockSessionDTO = new SessionDto(null, "Fake Session", new Date(), 1L,
+	            "This is a fake session for testing purposes.", mockUsers, LocalDateTime.now(), LocalDateTime.now());
+
+	    MvcResult result = mockMvc.perform(post("/api/session").contentType(MediaType.APPLICATION_JSON)
+	            .content(objectMapper.writeValueAsString(mockSessionDTO))
+	            .header("Authorization", "Bearer " + authToken)).andExpect(status().isOk()).andReturn();
+
+	    // Extract session ID from the response
+	    String content = result.getResponse().getContentAsString();
+	    Long sessionId = objectMapper.readTree(content).path("id").asLong();
+	    String stringSessionId = String.valueOf(sessionId);
+
+	    // Perform participation using an invalid user ID to trigger NumberFormatException
+	    String invalidUserId = "invalidUserId";
+	    mockMvc.perform(post("/api/session/{id}/participate/{userId}", stringSessionId, invalidUserId)
+	            .contentType(MediaType.APPLICATION_JSON)
+	            .header("Authorization", "Bearer " + authToken))
+	            .andExpect(status().isBadRequest()); // Expecting badRequest response
+
+	    mockMvc.perform(delete("/api/session/{id}", sessionId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isOk());
+	  
+	}
+	
+	@Test
+	public void unParticipateTest_badRequest() throws Exception {
+	    // Setup
+	    List<Long> mockUsers = new ArrayList<>();
+	    SessionDto mockSessionDTO = new SessionDto(null, "Fake Session", new Date(), 1L,
+	            "This is a fake session for testing purposes.", mockUsers, LocalDateTime.now(), LocalDateTime.now());
+
+	    MvcResult result = mockMvc.perform(post("/api/session").contentType(MediaType.APPLICATION_JSON)
+	            .content(objectMapper.writeValueAsString(mockSessionDTO))
+	            .header("Authorization", "Bearer " + authToken)).andExpect(status().isOk()).andReturn();
+
+	    // Extract session ID from the response
+	    String content = result.getResponse().getContentAsString();
+	    Long sessionId = objectMapper.readTree(content).path("id").asLong();
+	    String stringSessionId = String.valueOf(sessionId);
+	    
+	    mockMvc.perform(post("/api/session/{id}/participate/{userId}", stringSessionId, stringUserId)
+	            .contentType(MediaType.APPLICATION_JSON)
+	            .header("Authorization", "Bearer " + authToken)).andExpect(status().isOk());
+
+	    // Perform participation using an invalid user ID to trigger NumberFormatException
+	    String invalidUserId = "invalidUserId";
+	    mockMvc.perform(delete("/api/session/{id}/participate/{userId}", stringSessionId, invalidUserId)
+	            .contentType(MediaType.APPLICATION_JSON)
+	            .header("Authorization", "Bearer " + authToken))
+	            .andExpect(status().isBadRequest()); // Expecting badRequest response
+
+	    mockMvc.perform(delete("/api/session/{id}/participate/{userId}", stringSessionId, stringUserId)
+	            .contentType(MediaType.APPLICATION_JSON)
+	            .header("Authorization", "Bearer " + authToken)).andExpect(status().isOk());
+	    
+	    mockMvc.perform(delete("/api/session/{id}", sessionId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)).andExpect(status().isOk());
+	  
+	}
+
+
 }

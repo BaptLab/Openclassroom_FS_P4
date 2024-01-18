@@ -34,7 +34,7 @@ public class UserControllerTests {
 	private String authToken;
 
 	private String stringUserId;
-	
+
 	private String registerJsonRequest;
 
 	@Test
@@ -77,6 +77,86 @@ public class UserControllerTests {
 	}
 
 	@Test
+	public void getUserByIdTest_NotFound() throws Exception {
+
+		authToken = null;
+		stringUserId = null;
+		registerJsonRequest = null;
+		SignupRequest signupRequest = new SignupRequest();
+		signupRequest.setEmail("user@test.com");
+		signupRequest.setFirstName("UserTest");
+		signupRequest.setLastName("UserTest");
+		signupRequest.setPassword("testpwd");
+
+		registerJsonRequest = objectMapper.writeValueAsString(signupRequest);
+
+		mockMvc.perform(post("/api/auth/register").contentType(MediaType.APPLICATION_JSON).content(registerJsonRequest))
+				.andExpect(status().isOk());
+
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setEmail("user@test.com");
+		loginRequest.setPassword("testpwd");
+		String loginJsonRequest = objectMapper.writeValueAsString(loginRequest);
+
+		MvcResult result = mockMvc
+				.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON).content(loginJsonRequest))
+				.andExpect(status().isOk()).andReturn();
+
+		String responseBody = result.getResponse().getContentAsString();
+		authToken = objectMapper.readTree(responseBody).get("token").textValue();
+		Integer userId = objectMapper.readTree(responseBody).get("id").intValue();
+		stringUserId = String.valueOf(userId);
+		String invalidUserIdString = "1999";
+
+		mockMvc.perform(get("/api/user/{id}", invalidUserIdString).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)) // Include the token in the header
+				.andExpect(status().isNotFound());
+
+		mockMvc.perform(delete("/api/user/{id}", stringUserId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken));
+	}
+
+	@Test
+	public void getUserByIdTest_BadRequest() throws Exception {
+
+		authToken = null;
+		stringUserId = null;
+		registerJsonRequest = null;
+		SignupRequest signupRequest = new SignupRequest();
+		signupRequest.setEmail("user@test.com");
+		signupRequest.setFirstName("UserTest");
+		signupRequest.setLastName("UserTest");
+		signupRequest.setPassword("testpwd");
+
+		registerJsonRequest = objectMapper.writeValueAsString(signupRequest);
+
+		mockMvc.perform(post("/api/auth/register").contentType(MediaType.APPLICATION_JSON).content(registerJsonRequest))
+				.andExpect(status().isOk());
+
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setEmail("user@test.com");
+		loginRequest.setPassword("testpwd");
+		String loginJsonRequest = objectMapper.writeValueAsString(loginRequest);
+
+		MvcResult result = mockMvc
+				.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON).content(loginJsonRequest))
+				.andExpect(status().isOk()).andReturn();
+
+		String responseBody = result.getResponse().getContentAsString();
+		authToken = objectMapper.readTree(responseBody).get("token").textValue();
+		Integer userId = objectMapper.readTree(responseBody).get("id").intValue();
+		stringUserId = String.valueOf(userId);
+		String invalidUserIdString = "invalid";
+
+		mockMvc.perform(get("/api/user/{id}", invalidUserIdString).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)) // Include the token in the header
+				.andExpect(status().isBadRequest());
+
+		mockMvc.perform(delete("/api/user/{id}", stringUserId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken));
+	}
+
+	@Test
 	public void deleteUserByIdTest() throws Exception {
 		authToken = null;
 		stringUserId = null;
@@ -110,7 +190,88 @@ public class UserControllerTests {
 				.header("Authorization", "Bearer " + authToken)) // Include the token in the header
 				.andExpect(status().isOk());
 
-		
+	}
+
+	@Test
+	public void deleteUserByIdTest_NotFound() throws Exception {
+		authToken = null;
+		stringUserId = null;
+		registerJsonRequest = null;
+		SignupRequest signupRequest = new SignupRequest();
+		signupRequest.setEmail("user2@test.com");
+		signupRequest.setFirstName("User2Test");
+		signupRequest.setLastName("User2Test");
+		signupRequest.setPassword("test2pwd");
+
+		registerJsonRequest = objectMapper.writeValueAsString(signupRequest);
+
+		mockMvc.perform(post("/api/auth/register").contentType(MediaType.APPLICATION_JSON).content(registerJsonRequest))
+				.andExpect(status().isOk());
+
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setEmail("user2@test.com");
+		loginRequest.setPassword("test2pwd");
+		String loginJsonRequest = objectMapper.writeValueAsString(loginRequest);
+
+		MvcResult result = mockMvc
+				.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON).content(loginJsonRequest))
+				.andExpect(status().isOk()).andReturn();
+
+		String responseBody = result.getResponse().getContentAsString();
+		authToken = objectMapper.readTree(responseBody).get("token").textValue();
+		Integer userId = objectMapper.readTree(responseBody).get("id").intValue();
+		stringUserId = String.valueOf(userId);
+		String invalidUserIdString = "3939393";
+
+		mockMvc.perform(delete("/api/user/{id}", invalidUserIdString).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)) // Include the token in the header
+				.andExpect(status().isNotFound());
+
+		mockMvc.perform(delete("/api/user/{id}", stringUserId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)) // Include the token in the header
+				.andExpect(status().isOk());
+
+	}
+
+	@Test
+	public void deleteUserByIdTest_BadRequest() throws Exception {
+		authToken = null;
+		stringUserId = null;
+		registerJsonRequest = null;
+		SignupRequest signupRequest = new SignupRequest();
+		signupRequest.setEmail("user2@test.com");
+		signupRequest.setFirstName("User2Test");
+		signupRequest.setLastName("User2Test");
+		signupRequest.setPassword("test2pwd");
+
+		registerJsonRequest = objectMapper.writeValueAsString(signupRequest);
+
+		mockMvc.perform(post("/api/auth/register").contentType(MediaType.APPLICATION_JSON).content(registerJsonRequest))
+				.andExpect(status().isOk());
+
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setEmail("user2@test.com");
+		loginRequest.setPassword("test2pwd");
+		String loginJsonRequest = objectMapper.writeValueAsString(loginRequest);
+
+		MvcResult result = mockMvc
+				.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON).content(loginJsonRequest))
+				.andExpect(status().isOk()).andReturn();
+
+		String responseBody = result.getResponse().getContentAsString();
+		authToken = objectMapper.readTree(responseBody).get("token").textValue();
+		Integer userId = objectMapper.readTree(responseBody).get("id").intValue();
+		stringUserId = String.valueOf(userId);
+		String invalidUserIdString = "invalidFormatId";
+
+		mockMvc.perform(delete("/api/user/{id}", invalidUserIdString).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)) // Include the token in the header
+				.andExpect(status().isBadRequest());
+
+		mockMvc.perform(delete("/api/user/{id}", stringUserId).contentType(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer " + authToken)) // Include the token in the header
+				.andExpect(status().isOk());
+
 	}
 
 }
