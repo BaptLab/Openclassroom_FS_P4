@@ -96,7 +96,6 @@ describe('LoginComponent', () => {
       .mockReturnValue(of(mockSessionInformation));
 
     const logInSpy = jest.spyOn(component['sessionService'], 'logIn');
-    const consoleErrorSpy = jest.spyOn(console, 'error'); // Spy on console.error
     const routerNavigateSpy = jest.spyOn(TestBed.inject(Router), 'navigate');
 
     component.form.patchValue({
@@ -132,7 +131,6 @@ describe('LoginComponent', () => {
   it('should handle error when submitting invalid credentials', async () => {
     const loginSpy = jest.spyOn(component['authService'], 'login');
     const logInSpy = jest.spyOn(component['sessionService'], 'logIn');
-    const consoleErrorSpy = jest.spyOn(console, 'error'); // Spy on console.error
 
     component.form.patchValue({
       email: 'wrongusrn@com',

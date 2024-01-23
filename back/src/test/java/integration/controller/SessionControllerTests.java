@@ -99,7 +99,7 @@ public class SessionControllerTests {
 
 	@Test
 	public void getSessionByIdTest() throws Exception {
-		Long sessionId = 2L;
+		Long sessionId = 8L;
 
 		mockMvc.perform(get("/api/session/{id}", sessionId).contentType(MediaType.APPLICATION_JSON)
 				.header("Authorization", "Bearer " + authToken)).andExpect(status().isOk())
